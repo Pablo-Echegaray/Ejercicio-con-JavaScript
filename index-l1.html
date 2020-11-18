@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p{
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mi Pagina Web</h1>
+    </header>
+    <main>
+        <nav>
+            <a href="http://google.com">Google!</a>
+            <a href="http://educacionit.com">EducacionIT</a>
+        </nav>
+    </main>
+    <article id="movil">
+        <p>Esta navegando en un dispositivo móvil!</p>
+     <ul id="estatico"></ul>
+       
+    </article>
+    <script>
+//create element(li*10)     
+       //let ul = document.createElement("ul")
+       let ul = document.querySelector("ul")
+       let fragmento = document.createDocumentFragment()
+       for (var i = 0; i<10; i++){
+           let li = document.createElement("li")
+           li.innerText = "item" + i
+           fragmento.appendChild(li)
+       }
+        ul.appendChild(fragmento)
+
+//Hacer que el <article> con id "movil" solamente se vea si la pagina se carga a menos de 500px.
+    if (window.innerWidth > 500) {
+            document.querySelector("#movil").style.display = 'none'
+        } 
+
+//intercambiar URLs
+        //let main = document.querySelector("main")
+        let links = document.querySelectorAll("a")
+        //console.log(links)
+        let temp_url = links[0].href
+        links[0].href = links[1].href
+        links[1].href  = temp_url
+//cambiarle el color al header y al h1
+        document.querySelector("header").style.backgroundColor = 'rgba(0,50,150,0.3)'
+        document.querySelector("h1").style.color = 'rgba(200,200,200,0.8)'
+//efecto marquesina inyectando un <p> que muestra su texto de a una letra por vez.
+        let texto = "Pablo-Jonathan-Echegaray"
+        let p = document.createElement("p")
+        p.innerText = ""
+        document.querySelector("header").appendChild(p)
+        let counter = 0
+        let intervalo = setInterval(()=>{
+            if(counter<texto.length){
+                p.innerText+=texto[counter]
+                counter++
+            }else{
+                p.innerText = ""
+                counter = 0
+            }
+            if(counter==texto.length){
+                clearInterval(intervalo)
+            }
+        },300)   
+//crear un div que se traslade hasta el final de la pantalla sin pasarse
+        let div = document.createElement("div")  
+        div.style.position = 'relative' 
+        div.style.width = '200px'
+        div.style.height = '200px'
+        div.style.backgroundColor = 'red'
+        let left = 0
+        document.querySelector("main").appendChild(div) 
+        let avanzar = setInterval(()=>{
+            if((left+200)==window.innerWidth){
+                clearInterval(avanzar);
+            }
+            div.style.left = left+"px"
+            left++
+        },0.3)   
+        
+    
+
+
+    </script>
+</body>
+</html>
